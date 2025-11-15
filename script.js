@@ -2,6 +2,10 @@ let cooldowns = {}; // { pair: { endTime: ..., intervalId: ... } }
 let currentPair = ""; // глобально
 
 document.addEventListener("DOMContentLoaded", () => {
+    const languageSelect = document.getElementById("language");
+    languageSelect.value = "en"; // по умолчанию английский
+    changeLanguage(); // сразу применяем переводы
+
     const generateButton = document.getElementById("generate-btn");
     const signalResult = document.getElementById("signal-result");
     const signalTime = document.getElementById("signal-time");
@@ -124,6 +128,14 @@ function parseTimeframeToMs(timeframeText) {
         return value * 1000;
     }
     if (lowercase.includes("daqiqa")) {
+        return value * 60 * 1000;
+    }
+
+        // Поддержка украинского языка
+    if (lowercase.includes("секунд") || lowercase.includes("секунда")) {
+        return value * 1000;
+    }
+    if (lowercase.includes("хвилин") || lowercase.includes("хвилина")) {
         return value * 60 * 1000;
     }
 
